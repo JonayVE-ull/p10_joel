@@ -1,22 +1,11 @@
-CXX = g++                         # The C++ compiler command
-CXXFLAGS = -std=c++14 -Wall -g     # The C++ compiler options
+CXX     := g++
+CXX_FLAGS := -Wall -o
 
-# The all target builds all of the programs handled by the makefile.
-all: p08_grammar
+all:
 
-p08_grammar: p08_grammar.o grammar.o production.o alphabet.o strings.o symbol.o
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXX_FLAGS) dfa_simulation client.cc dfa.cc state.cc alphabet.cc strings.cc symbol.cc 
 
-# Indicate that the all and clean targets do not
-# correspond to actual files.
-.PHONY: all clean
 
-# The following rule is effectively built into make and
-# therefore need not be explicitly specified:
+clean:
 
-	$(CXX) $(CXXFLAGS) -c $<
-
-# The clean target removes all of the executable files
-# and object files produced by the build process
-clean :
-	rm -f p08_grammar *.o core
+	rm -rf dfa_simulation
